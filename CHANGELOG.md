@@ -1,3 +1,15 @@
+# v1.0.27 (2024-12-26 17:16:21 -0500)
+
+## Release Notes
+Merge pull request #21 from luiscdev/second
+
+refactor: delete logs
+
+## Commits
+* c91ef3d - Merge pull request #21 from luiscdev/second (Luis Zuleta)
+* 982edb5 - refactor: delete logs (Luis Zuleta)
+* a4065fa - Update changelog (github-actions[bot])
+
 # v1.0.26 (2024-12-26 15:21:37 -0500)
 
 ## Release Notes
