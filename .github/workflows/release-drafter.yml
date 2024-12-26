@@ -23,8 +23,10 @@ jobs:
       - name: Generate Changelog
         uses: release-drafter/release-drafter@v5
         with:
-          config-name: .github/release-drafter.yml
-
+          config-name: /release-drafter.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          
       - name: Commit and Push Changes
         run: |
           git config --global user.name 'github-actions[bot]'
