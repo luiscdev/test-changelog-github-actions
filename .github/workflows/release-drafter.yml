@@ -3,7 +3,10 @@ name: Release Drafter
 on:
   push:
     tags:
-      - "v*.*.*"  # Se activa al hacer push de un tag
+      - "v*.*.*" # Se activa al hacer push de un tag
+
+permissions:
+  contents: write
 
 jobs:
   update-changelog:
