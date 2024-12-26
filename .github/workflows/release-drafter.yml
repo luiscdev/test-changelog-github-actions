@@ -15,9 +15,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Esto es importante para obtener todo el historial de tags
 
-      - name: Fetch all branches
-        run: git fetch --all
+      - name: Fetch all branches and tags
+        run: |
+          git fetch --all
+          git fetch --tags
 
       - name: Determine branch
         id: get_branch
@@ -25,14 +29,30 @@ jobs:
 
       - name: Generate and Prepend Changelog
         run: |
-          # Guardar los logs nuevos en un archivo temporal
-          git log --pretty=format:"%h - %an, %ar : %s" $(git describe --tags --abbrev=0 @^)..@ > temp_changelog.txt
+          # Obtener el tag actual y el anterior
+          CURRENT_TAG=$(git describe --tags --abbrev=0)
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 ${CURRENT_TAG}^)
           
-          # Si CHANGELOG.md existe, combinar los archivos
+          # Crear encabezado con la fecha del tag actual
+          echo "# ${CURRENT_TAG} ($(git log -1 --format=%ai ${CURRENT_TAG}))" > temp_changelog.txt
+          echo "" >> temp_changelog.txt
+          
+          # Obtener el mensaje del release tag (si existe)
+          TAG_MESSAGE=$(git tag -l --format='%(contents)' ${CURRENT_TAG})
+          if [ ! -z "$TAG_MESSAGE" ]; then
+            echo "## Release Notes" >> temp_changelog.txt
+            echo "$TAG_MESSAGE" >> temp_changelog.txt
+            echo "" >> temp_changelog.txt
+          fi
+          
+          # Obtener los commits entre tags
+          echo "## Commits" >> temp_changelog.txt
+          git log --pretty=format:"* %h - %s (%an)" ${PREVIOUS_TAG}..${CURRENT_TAG} >> temp_changelog.txt
+          echo "" >> temp_changelog.txt
+          echo "" >> temp_changelog.txt
+          
+          # Si existe CHANGELOG.md, agregar su contenido
           if [ -f CHANGELOG.md ]; then
-            # Agregar una línea en blanco entre los logs nuevos y antiguos
-            echo "" >> temp_changelog.txt
-            echo "" >> temp_changelog.txt
             cat CHANGELOG.md >> temp_changelog.txt
           fi
           
