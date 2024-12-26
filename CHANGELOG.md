@@ -1,3 +1,15 @@
+# v1.0.26 (2024-12-26 15:21:37 -0500)
+
+## Release Notes
+Merge pull request #20 from luiscdev/second
+
+refactor: add new logs
+
+## Commits
+* 8196451 - Merge pull request #20 from luiscdev/second (Luis Zuleta)
+* 1dc97f9 - refactor: add new logs (Luis Zuleta)
+* 1c30589 - Update changelog (github-actions[bot])
+
 # v1.0.25 (2024-12-26 15:19:14 -0500)
 
 ## Release Notes
