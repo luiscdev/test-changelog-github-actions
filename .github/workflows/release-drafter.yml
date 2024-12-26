@@ -16,13 +16,9 @@ jobs:
       - name: Fetch all branches
         run: git fetch --all
 
-      - name: Switch to main branch
-        run: git checkout main
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+      - name: Determine branch
+        id: get_branch
+        run: echo "::set-output name=branch::$(git symbolic-ref --short HEAD || echo 'main')"
 
       - name: Generate Changelog
         run: |
@@ -33,10 +29,10 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout main
-          git pull origin main
+          git checkout ${{ steps.get_branch.outputs.branch }}
+          git pull origin ${{ steps.get_branch.outputs.branch }}
           git add CHANGELOG.md
           git commit -m 'Update changelog'
-          git push origin main
+          git push origin ${{ steps.get_branch.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
