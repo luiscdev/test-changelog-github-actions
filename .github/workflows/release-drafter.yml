@@ -13,6 +13,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Fetch all branches
+        run: git fetch --all
+
+      - name: Switch to main branch
+        run: git checkout main
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
