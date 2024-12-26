@@ -1,3 +1,16 @@
+# v1.0.28 (2024-12-26 17:30:33 -0500)
+
+## Release Notes
+Merge pull request #22 from luiscdev/second
+
+feature: add logs
+
+## Commits
+* 9a9c99f - Merge pull request #22 from luiscdev/second (Luis Zuleta)
+* 489d630 - feature: add logs (Luis Zuleta)
+* e5a540f - fix: add stash to action (Luis Zuleta)
+* 98de2e3 - Update changelog (github-actions[bot])
+
 # v1.0.27 (2024-12-26 17:16:21 -0500)
 
 ## Release Notes
