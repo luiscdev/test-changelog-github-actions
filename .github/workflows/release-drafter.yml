@@ -1,0 +1,29 @@
+name: Release Drafter
+
+on:
+  push:
+    tags:
+      - "v*.*.*"  # Se activa al hacer push de un tag
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Generate Changelog
+        run: |
+          # Comando para generar el changelog (puedes personalizarlo)
+          git log --pretty=format:"%h - %an, %ar : %s" > CHANGELOG.md
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add CHANGELOG.md
+          git commit -m 'Update changelog'
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
