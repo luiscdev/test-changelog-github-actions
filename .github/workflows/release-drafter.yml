@@ -3,7 +3,7 @@ name: Release Drafter
 on:
   push:
     tags:
-      - "v*.*.*" # Se activa al hacer push de un tag
+      - "v*.*.*"
 
 permissions:
   contents: write
@@ -23,10 +23,21 @@ jobs:
         id: get_branch
         run: echo "::set-output name=branch::$(git symbolic-ref --short HEAD || echo 'main')"
 
-      - name: Generate Changelog
+      - name: Generate and Prepend Changelog
         run: |
-          # Comando para generar el changelog (puedes personalizarlo)
-          git log --pretty=format:"%h - %an, %ar : %s" > CHANGELOG.md
+          # Guardar los logs nuevos en un archivo temporal
+          git log --pretty=format:"%h - %an, %ar : %s" $(git describe --tags --abbrev=0 @^)..@ > temp_changelog.txt
+          
+          # Si CHANGELOG.md existe, combinar los archivos
+          if [ -f CHANGELOG.md ]; then
+            # Agregar una línea en blanco entre los logs nuevos y antiguos
+            echo "" >> temp_changelog.txt
+            echo "" >> temp_changelog.txt
+            cat CHANGELOG.md >> temp_changelog.txt
+          fi
+          
+          # Mover el archivo temporal a CHANGELOG.md
+          mv temp_changelog.txt CHANGELOG.md
 
       - name: Commit and Push Changes
         run: |
