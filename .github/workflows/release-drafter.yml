@@ -21,12 +21,10 @@ jobs:
         run: echo "::set-output name=branch::$(git symbolic-ref --short HEAD || echo 'main')"
 
       - name: Generate Changelog
-        uses: release-drafter/release-drafter@v5
-        with:
-          config-name: /release-drafter.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          
+        run: |
+          # Comando para generar el changelog (puedes personalizarlo)
+          git log --pretty=format:"%h - %an, %ar : %s" > CHANGELOG.md
+
       - name: Commit and Push Changes
         run: |
           git config --global user.name 'github-actions[bot]'
