@@ -22,8 +22,10 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout main
+          git pull origin main
           git add CHANGELOG.md
           git commit -m 'Update changelog'
-          git push
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
