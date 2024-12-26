@@ -5,6 +5,9 @@ on:
     tags:
       - "v*.*.*"  # Se activa al hacer push de un tag
 
+permissions:
+  contents: write
+
 jobs:
   update-changelog:
     runs-on: ubuntu-latest
@@ -12,6 +15,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch all branches
         run: git fetch --all
@@ -35,4 +40,4 @@ jobs:
           git commit -m 'Update changelog'
           git push origin ${{ steps.get_branch.outputs.branch }}
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
