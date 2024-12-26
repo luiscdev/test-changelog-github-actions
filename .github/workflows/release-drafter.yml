@@ -5,9 +5,6 @@ on:
     tags:
       - "v*.*.*"  # Se activa al hacer push de un tag
 
-permissions:
-  contents: write
-
 jobs:
   update-changelog:
     runs-on: ubuntu-latest
@@ -15,8 +12,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch all branches
         run: git fetch --all
@@ -26,9 +21,9 @@ jobs:
         run: echo "::set-output name=branch::$(git symbolic-ref --short HEAD || echo 'main')"
 
       - name: Generate Changelog
-        run: |
-          # Comando para generar el changelog (puedes personalizarlo)
-          git log --pretty=format:"%h - %an, %ar : %s" > CHANGELOG.md
+        uses: release-drafter/release-drafter@v5
+        with:
+          config-name: .github/release-drafter.yml
 
       - name: Commit and Push Changes
         run: |
@@ -40,4 +35,4 @@ jobs:
           git commit -m 'Update changelog'
           git push origin ${{ steps.get_branch.outputs.branch }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
