@@ -1,3 +1,18 @@
+# v1.0.57 (2024-12-27 12:47:18 -0500)
+
+## Release Notes
+Merge branch 'main' of https://github.com/luiscdev/test-changelog-github-actions
+
+## Commits
+* 40ef737 - Merge branch 'main' of https://github.com/luiscdev/test-changelog-github-actions (Luis Zuleta)
+* 812a86e - refactor: change token (Luis Zuleta)
+* f6b5efe - Update changelog (github-actions[bot])
+* 5c61c26 - Merge pull request #38 from luiscdev/stg (Luis Zuleta)
+* 12676d9 - Merge pull request #37 from luiscdev/dev (Luis Zuleta)
+* 0dce63c - Merge pull request #36 from luiscdev/second (Luis Zuleta)
+* fca9b55 - fix: yaml (Luis Zuleta)
+* 5bb08c0 - Update changelog (github-actions[bot])
+
 # v1.0.56 (2024-12-27 12:43:08 -0500)
 
 ## Release Notes
