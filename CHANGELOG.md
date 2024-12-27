@@ -1,3 +1,11 @@
+# v1.0.39 (2024-12-27 11:18:03 -0500)
+
+## Release Notes
+fix: pattern
+
+## Commits
+* c4d5268 - fix: pattern (Luis Zuleta)
+
 # v1.0.31-dev (2024-12-27 10:43:13 -0500)
 
 ## Release Notes
