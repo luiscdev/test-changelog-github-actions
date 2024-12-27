@@ -1,3 +1,11 @@
+# v1.0.42 (2024-12-27 11:21:47 -0500)
+
+## Release Notes
+fix: pattern
+
+## Commits
+* d25c2bd - fix: pattern (Luis Zuleta)
+
 # v1.0.40 (2024-12-27 16:18:41 +0000)
 
 ## Release Notes
