@@ -71,5 +71,5 @@ jobs:
           git diff --staged --quiet || git commit -m 'Update changelog'
           git push origin ${{ steps.get_branch.outputs.branch }}
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
