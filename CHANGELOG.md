@@ -1,3 +1,36 @@
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+# v1.0.44-dev (2024-12-27 11:34:10 -0500)
+
+## Release Notes
+Merge pull request #29 from luiscdev/second
+
+Second
+
+## Commits
+* 82f1400 - Merge pull request #29 from luiscdev/second (Luis Zuleta)
+* 80023b7 - feature: add console (Luis Zuleta)
+* ae88590 - Merge branch 'main' of https://github.com/luiscdev/test-changelog-github-actions into second (Luis Zuleta)
+* 1aad1dc - Merge branch 'main' of https://github.com/luiscdev/test-changelog-github-actions (Luis Zuleta)
+* c87a026 - fix: yaml (Luis Zuleta)
+=======
+=======
+>>>>>>> Stashed changes
+# v1.0.45-dev (2024-12-27 11:37:54 -0500)
+
+## Release Notes
+Merge pull request #30 from luiscdev/second
+
+fix: yaml
+
+## Commits
+* 6ea5fb9 - Merge pull request #30 from luiscdev/second (Luis Zuleta)
+* 0e65d63 - fix: yaml (Luis Zuleta)
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+
 # v1.0.42 (2024-12-27 11:21:47 -0500)
 
 ## Release Notes
