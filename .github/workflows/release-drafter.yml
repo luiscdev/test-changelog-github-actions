@@ -3,7 +3,9 @@ name: Release Drafter
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "v[0-9]+.[0-9]+.[0-9]+"
+    branches-ignore:
+      - '**'
 
 permissions:
   contents: write
@@ -11,6 +13,7 @@ permissions:
 jobs:
   update-changelog:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout Repository
