@@ -1,3 +1,11 @@
+# v1.0.40 (2024-12-27 16:18:41 +0000)
+
+## Release Notes
+Update changelog
+
+## Commits
+* 8110b37 - Update changelog (github-actions[bot])
+
 # v1.0.39 (2024-12-27 11:18:03 -0500)
 
 ## Release Notes
