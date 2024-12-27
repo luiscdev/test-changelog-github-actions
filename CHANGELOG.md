@@ -1,3 +1,15 @@
+# v1.0.29 (2024-12-26 17:38:06 -0500)
+
+## Release Notes
+Merge pull request #23 from luiscdev/second
+
+refactor: change logs for third line
+
+## Commits
+* a794156 - Merge pull request #23 from luiscdev/second (Luis Zuleta)
+* 2ba4bff - refactor: change logs for third line (Luis Zuleta)
+* e399807 - Update changelog (github-actions[bot])
+
 # v1.0.30-dev (2024-12-27 09:15:06 -0500)
 
 ## Release Notes
