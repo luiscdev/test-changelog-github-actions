@@ -27,7 +27,12 @@ jobs:
         id: get_branch
         run: echo "::set-output name=branch::$(git symbolic-ref --short HEAD || echo 'main')"
 
+      - name: Verify tag is on main branch
+        if: github.ref_type == 'tag' && steps.get_branch.outputs.branch == 'main'
+        run: echo "Tag is on the main branch. Proceeding with changelog update."
+
       - name: Generate and Prepend Changelog
+        if: github.ref_type == 'tag' && steps.get_branch.outputs.branch == 'main'
         run: |
           CURRENT_TAG=$(git describe --tags --abbrev=0)
           PREVIOUS_TAG=$(git describe --tags --abbrev=0 ${CURRENT_TAG}^)
@@ -54,6 +59,7 @@ jobs:
           mv temp_changelog.txt CHANGELOG.md
 
       - name: Commit and Push Changes
+        if: github.ref_type == 'tag' && steps.get_branch.outputs.branch == 'main'
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
