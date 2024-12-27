@@ -1,3 +1,12 @@
+# v1.0.30-dev (2024-12-27 09:15:06 -0500)
+
+## Release Notes
+refactor: comment line
+
+## Commits
+* 0cd3fd5 - refactor: comment line (Luis Zuleta)
+* e13d47c - Update changelog (github-actions[bot])
+
 # v1.0.29 (2024-12-26 17:38:06 -0500)
 
 ## Release Notes
