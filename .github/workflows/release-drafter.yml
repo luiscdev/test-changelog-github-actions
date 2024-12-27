@@ -3,9 +3,7 @@ name: Release Drafter
 on:
   push:
     tags:
-      - "v*.*.*"
-    branches:
-      - "main"
+      - "v*.*.*"  # Detecta solo los tags que coinciden con este patrón
 
 permissions:
   contents: write
@@ -25,9 +23,21 @@ jobs:
           git fetch --all
           git fetch --tags
 
-      - name: Determine branch
+      - name: Get the branch of the tag
         id: get_branch
-        run: echo "::set-output name=branch::$(git symbolic-ref --short HEAD || echo 'main')"
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}  # Extrae el nombre del tag
+          BRANCH_NAME=$(git for-each-ref --format '%(upstream:short)' refs/tags/$TAG_NAME)
+          echo "Branch associated with tag: $BRANCH_NAME"
+          echo "::set-output name=branch::${BRANCH_NAME}"
+        
+      - name: Check if tag is from main
+        id: check_main
+        run: |
+          if [[ "${{ steps.get_branch.outputs.branch }}" != "main" ]]; then
+            echo "This tag is not from the 'main' branch, exiting."
+            exit 1
+          fi
 
       - name: Generate and Prepend Changelog
         run: |
