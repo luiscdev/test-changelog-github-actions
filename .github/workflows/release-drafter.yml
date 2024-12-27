@@ -16,46 +16,41 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Esto es importante para obtener todo el historial de tags
 
       - name: Fetch all branches and tags
         run: |
           git fetch --all
           git fetch --tags
 
-      - name: Verify Tag Belongs to Main Branch
-        id: verify_tag
-        run: |
-          BASE_BRANCH=$(git branch -r --contains ${{ github.event.ref }} | grep "origin/main" || true)
-          if [ -z "$BASE_BRANCH" ]; then
-            echo "The tag does not belong to the main branch. Exiting."
-            exit 1
-          fi
+      - name: Determine branch
+        id: get_branch
+        run: echo "::set-output name=branch::$(git symbolic-ref --short HEAD || echo 'main')"
 
       - name: Generate and Prepend Changelog
         run: |
           CURRENT_TAG=$(git describe --tags --abbrev=0)
           PREVIOUS_TAG=$(git describe --tags --abbrev=0 ${CURRENT_TAG}^)
-          
+
           echo "# ${CURRENT_TAG} ($(git log -1 --format=%ai ${CURRENT_TAG}))" > temp_changelog.txt
           echo "" >> temp_changelog.txt
-          
+
           TAG_MESSAGE=$(git tag -l --format='%(contents)' ${CURRENT_TAG})
           if [ ! -z "$TAG_MESSAGE" ]; then
             echo "## Release Notes" >> temp_changelog.txt
             echo "$TAG_MESSAGE" >> temp_changelog.txt
             echo "" >> temp_changelog.txt
           fi
-          
+
           echo "## Commits" >> temp_changelog.txt
           git log --pretty=format:"* %h - %s (%an)" ${PREVIOUS_TAG}..${CURRENT_TAG} >> temp_changelog.txt
           echo "" >> temp_changelog.txt
           echo "" >> temp_changelog.txt
-          
+
           if [ -f CHANGELOG.md ]; then
             cat CHANGELOG.md >> temp_changelog.txt
           fi
-          
+
           mv temp_changelog.txt CHANGELOG.md
 
       - name: Commit and Push Changes
@@ -64,12 +59,12 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           git stash -u
-          git checkout main
-          git pull origin main
+          git checkout ${{ steps.get_branch.outputs.branch }}
+          git pull origin ${{ steps.get_branch.outputs.branch }}
           git stash pop || true
-          
+
           git add CHANGELOG.md
           git diff --staged --quiet || git commit -m 'Update changelog'
-          git push origin main
+          git push origin ${{ steps.get_branch.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
