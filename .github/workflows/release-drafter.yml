@@ -3,9 +3,7 @@ name: Release Drafter
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
-    branches-ignore:
-      - '**'
+      - "v*.*.*"
 
 permissions:
   contents: write
@@ -13,22 +11,26 @@ permissions:
 jobs:
   update-changelog:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Esto es importante para obtener todo el historial de tags
+          fetch-depth: 0
 
       - name: Fetch all branches and tags
         run: |
           git fetch --all
           git fetch --tags
 
-      - name: Determine branch
-        id: get_branch
-        run: echo "::set-output name=branch::$(git symbolic-ref --short HEAD || echo 'main')"
+      - name: Verify Tag Belongs to Main Branch
+        id: verify_tag
+        run: |
+          BASE_BRANCH=$(git branch -r --contains ${{ github.event.ref }} | grep "origin/main" || true)
+          if [ -z "$BASE_BRANCH" ]; then
+            echo "The tag does not belong to the main branch. Exiting."
+            exit 1
+          fi
 
       - name: Generate and Prepend Changelog
         run: |
@@ -62,12 +64,12 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           git stash -u
-          git checkout ${{ steps.get_branch.outputs.branch }}
-          git pull origin ${{ steps.get_branch.outputs.branch }}
+          git checkout main
+          git pull origin main
           git stash pop || true
           
           git add CHANGELOG.md
           git diff --staged --quiet || git commit -m 'Update changelog'
-          git push origin ${{ steps.get_branch.outputs.branch }}
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}

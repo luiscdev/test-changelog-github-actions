@@ -1,3 +1,27 @@
+# v1.0.42 (2024-12-27 11:21:47 -0500)
+
+## Release Notes
+fix: pattern
+
+## Commits
+* d25c2bd - fix: pattern (Luis Zuleta)
+
+# v1.0.40 (2024-12-27 16:18:41 +0000)
+
+## Release Notes
+Update changelog
+
+## Commits
+* 8110b37 - Update changelog (github-actions[bot])
+
+# v1.0.39 (2024-12-27 11:18:03 -0500)
+
+## Release Notes
+fix: pattern
+
+## Commits
+* c4d5268 - fix: pattern (Luis Zuleta)
+
 # v1.0.31-dev (2024-12-27 10:43:13 -0500)
 
 ## Release Notes
