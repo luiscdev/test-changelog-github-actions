@@ -1,3 +1,14 @@
+# v1.0.45-dev (2024-12-27 11:37:54 -0500)
+
+## Release Notes
+Merge pull request #30 from luiscdev/second
+
+fix: yaml
+
+## Commits
+* 6ea5fb9 - Merge pull request #30 from luiscdev/second (Luis Zuleta)
+* 0e65d63 - fix: yaml (Luis Zuleta)
+
 # v1.0.42 (2024-12-27 11:21:47 -0500)
 
 ## Release Notes
