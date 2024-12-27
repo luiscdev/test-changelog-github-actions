@@ -1,3 +1,32 @@
+# v1.0.31-dev (2024-12-27 10:43:13 -0500)
+
+## Release Notes
+feature: add new log
+
+## Commits
+* 9cc706a - feature: add new log (Luis Zuleta)
+
+# v1.0.29 (2024-12-26 17:38:06 -0500)
+
+## Release Notes
+Merge pull request #23 from luiscdev/second
+
+refactor: change logs for third line
+
+## Commits
+* a794156 - Merge pull request #23 from luiscdev/second (Luis Zuleta)
+* 2ba4bff - refactor: change logs for third line (Luis Zuleta)
+* e399807 - Update changelog (github-actions[bot])
+
+# v1.0.30-dev (2024-12-27 09:15:06 -0500)
+
+## Release Notes
+refactor: comment line
+
+## Commits
+* 0cd3fd5 - refactor: comment line (Luis Zuleta)
+* e13d47c - Update changelog (github-actions[bot])
+
 # v1.0.29 (2024-12-26 17:38:06 -0500)
 
 ## Release Notes
