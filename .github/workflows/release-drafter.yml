@@ -26,6 +26,10 @@ jobs:
             echo "Tag is not on main branch"
             exit 1
           fi
+      
+      - name: Determine branch
+        id: get_branch
+        run: echo "::set-output name=branch::$(git symbolic-ref --short HEAD || echo 'main')"
 
       - name: Generate and Prepend Changelog
         run: |
@@ -59,13 +63,13 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           git stash -u
-          git checkout ${{ steps.check_branch.outputs.branch }}
-          git pull origin ${{ steps.check_branch.outputs.branch }}
+          git checkout ${{ steps.get_branch.outputs.branch }}
+          git pull origin ${{ steps.get_branch.outputs.branch }}
           git stash pop || true
           
           git add CHANGELOG.md
           git diff --staged --quiet || git commit -m 'Update changelog'
-          git push origin ${{ steps.check_branch.outputs.branch }}
+          git push origin ${{ steps.get_branch.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           
