@@ -4,3 +4,7 @@ console.log("third line");
 console.log("fourth line");
 console.log("fifth line");
 console.log("sixth line");
+console.log("seventh line");
+console.log("eighth line");
+console.log("ninth line");
+console.log("tenth line");
