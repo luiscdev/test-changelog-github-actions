@@ -1,3 +1,11 @@
+# v1.0.31-dev (2024-12-27 10:43:13 -0500)
+
+## Release Notes
+feature: add new log
+
+## Commits
+* 9cc706a - feature: add new log (Luis Zuleta)
+
 # v1.0.29 (2024-12-26 17:38:06 -0500)
 
 ## Release Notes
