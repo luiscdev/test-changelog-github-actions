@@ -3,9 +3,7 @@ name: Release Drafter
 on:
   push:
     tags:
-      - "v*.*.[0-9]+"
-    branches-ignore:
-      - 'main'
+      - "^v[0-9]+.[0-9]+.[0-9]+$"
 
 permissions:
   contents: write
@@ -13,13 +11,13 @@ permissions:
 jobs:
   update-changelog:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref_type == 'tag' && contains(github.ref, 'refs/tags/') && github.event.base_ref == 'refs/heads/main'
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Esto es importante para obtener todo el historial de tags
+          fetch-depth: 0
 
       - name: Fetch all branches and tags
         run: |
