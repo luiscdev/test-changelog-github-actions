@@ -3,7 +3,7 @@ name: Release Drafter
 on:
   push:
     tags:
-      - "v*.*.*"  # Detecta solo los tags que coinciden con este patrón
+      - "v*.*.*"
 
 permissions:
   contents: write
@@ -11,31 +11,19 @@ permissions:
 jobs:
   update-changelog:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Esto es importante para obtener todo el historial de tags
+          fetch-depth: 0
 
-      - name: Fetch all branches and tags
+      - name: Check if tag is on main branch
+        id: check_branch
         run: |
-          git fetch --all
-          git fetch --tags
-
-      - name: Get the branch of the tag
-        id: get_branch
-        run: |
-          TAG_NAME=${GITHUB_REF#refs/tags/}  # Extrae el nombre del tag
-          BRANCH_NAME=$(git for-each-ref --format '%(upstream:short)' refs/tags/$TAG_NAME)
-          echo "Branch associated with tag: $BRANCH_NAME"
-          echo "::set-output name=branch::${BRANCH_NAME}"
-        
-      - name: Check if tag is from main
-        id: check_main
-        run: |
-          if [[ "${{ steps.get_branch.outputs.branch }}" != "main" ]]; then
-            echo "This tag is not from the 'main' branch, exiting."
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          BRANCH=$(git branch -r --contains $TAG_NAME | grep 'origin/main' || true)
+          if [ -z "$BRANCH" ]; then
+            echo "Tag is not on main branch"
             exit 1
           fi
 
@@ -69,14 +57,8 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-          git stash -u
-          git checkout ${{ steps.get_branch.outputs.branch }}
-          git pull origin ${{ steps.get_branch.outputs.branch }}
-          git stash pop || true
-          
           git add CHANGELOG.md
           git diff --staged --quiet || git commit -m 'Update changelog'
-          git push origin ${{ steps.get_branch.outputs.branch }}
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
