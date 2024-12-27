@@ -1,3 +1,11 @@
+# v1.0.42 (2024-12-27 11:21:47 -0500)
+
+## Release Notes
+fix: pattern
+
+## Commits
+* d25c2bd - fix: pattern (Luis Zuleta)
+
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 # v1.0.44-dev (2024-12-27 11:34:10 -0500)
