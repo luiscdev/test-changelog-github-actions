@@ -1,3 +1,11 @@
+# v1.0.55 (2024-12-27 12:38:24 -0500)
+
+## Release Notes
+fix: yaml
+
+## Commits
+* 6f068bb - fix: yaml (Luis Zuleta)
+
 # v1.0.45-dev (2024-12-27 11:37:54 -0500)
 
 ## Release Notes
